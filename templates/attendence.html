@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Entry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #4d88ff, #ffffff);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Attendance Entry</h1>
+
+        <form action="/attendance" method="post">
+            <label for="eid">Employee ID</label>
+            <input type="text" id="eid" name="eid" required>
+
+            <label for="ename">Employee Name</label>
+            <input type="text" id="ename" name="ename" required>
+
+            <label for="deptid">Department ID</label>
+            <input type="text" id="deptid" name="deptid" required>
+
+            <label for="deptname">Department Name</label>
+            <input type="text" id="deptname" name="deptname" required>
+
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time_in">Time In</label>
+            <input type="time" id="time_in" name="time_in" required>
+
+            <label for="time_out">Time Out</label>
+            <input type="time" id="time_out" name="time_out" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

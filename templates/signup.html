@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #4d88ff, #ffffff);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .section-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .section-buttons button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .section-buttons button:hover {
+            background-color: #45a049;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #3caf40;
+            color: rgb(204, 157, 157);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+
+    <h1>Employee Signup Page</h1>
+
+    <div class="form-container">
+        <form action="/signup" method="post">
+            <label for="eid">Employee ID</label>
+            <input type="text" id="eid" name="eid">
+
+            <label for="ename">Employee Name</label>
+            <input type="text" id="ename" name="ename">
+
+            <label for="deptid">Department ID</label>
+            <input type="text" id="deptid" name="deptid">
+
+            <label for="designation">Designation</label>
+            <input type="text" id="designation" name="designation">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+
+            <label for="contact">Contact Number</label>
+            <input type="text" id="contact" name="contact">
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address">
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Set up canvas
+        var canvasContainer = document.getElementById('canvas-container');
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        canvasContainer.appendChild(canvas);
+
+        // Resize canvas to full screen
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Generate random circles
+        var circles = [];
+        var numCircles = 50;
+        for (var i = 0; i < numCircles; i++) {
+            var radius = Math.random() * 40 + 10;
+            var x = Math.random() * (canvas.width - 2 * radius) + radius;
+            var y = Math.random() * (canvas.height - 2 * radius) + radius;
+            var dx = (Math.random() - 0.5) * 2;
+            var dy = (Math.random() - 0.5) * 2;
+            var color = getRandomColor();
+            circles.push({ x: x, y: y, radius: radius, dx: dx, dy: dy, color: color });
+        }
+
+        // Get random color
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw circles
+            circles.forEach(function (circle) {
+                ctx.fillStyle = circle.color;
+                ctx.beginPath();
+                ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+
+                // Move circles
+                circle.x += circle.dx;
+                circle.y += circle.dy;
+
+                // Check boundaries
+                if (circle.x + circle.radius > canvas.width || circle.x - circle.radius < 0) {
+                    circle.dx = -circle.dx;
+                }
+                if (circle.y + circle.radius > canvas.height || circle.y - circle.radius < 0) {
+                    circle.dy = -circle.dy;
+                }
+            });
+        }
+
+        animate();
+    </script>
+</body>
+</html>
