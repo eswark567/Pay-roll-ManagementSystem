@@ -1,4 +1,4 @@
-from empDetails import Employee
+from empDetails import Employee,SalaryCalci
 from flask import Flask,render_template,jsonify,request
 
 app=Flask(__name__)
@@ -39,6 +39,7 @@ def attendence():
         time_in=request.form.get('time_in')
         time_out=request.form.get('time_out')
         emp.attendence(Eid=eid,Ename=ename,DeptId=deptid,DeptName=deptname,Date=date,time_in=time_in,time_out=time_out)
+        return render_template("message.html")
     return render_template("attendence.html")
 @app.route('/SalaryDetai',methods=['GET','POST'])
 def salary():
@@ -49,9 +50,19 @@ def salary():
         pan=request.form.get('pan')
         base_sal=request.form.get('base_sal')
         emp.salary(Eid=eid,DeptId=deptid,Account_number=account_number,PAN=pan,Base_sal=base_sal)
-        return jsonify({'message':'successfully inserted'})
+        return render_template("message.html")
     return render_template("SalaryDet.html")
-
+@app.route('/payroll',methods=['GET','POST'])
+def Empsalary():
+    if request.method=='POST':
+        eid=request.form.get('empid')
+        sc=SalaryCalci()
+        Total_sal=sc.salaryCalculator(eid=int(eid))
+        context={'EmployeeID':eid,'TotalSalary':int(Total_sal)}
+        return render_template('showEmpSal.html',data = context)
+    else:
+        return render_template('enterEid.html')
+    
 if __name__=='__main__':
     app.run()
 

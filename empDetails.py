@@ -49,4 +49,18 @@ class Employee:
                     ({k['Eid']},{k['DeptId']},{k['Account_number']},
                     "{k['PAN']}",{k['Base_sal']}) ''')
         conn.commit()
-        print("Data has been inserted successfully in salary table.")
+
+class SalaryCalci:
+    def salaryCalculator(self,eid):
+        conn=sqlite3.connect('pms.db')
+        cur=conn.cursor()
+        cur.execute(f"select base_sal from salary where eid={eid}")
+        bs=cur.fetchall()[0][0]
+        cur.execute(f"select date,time_in,time_out from attendence where eid={eid}")
+        wd=cur.fetchall()
+        hrs=bs/(22*8)
+        su=0
+        for i in wd:
+            c=(int(i[2][:2])-int(i[1][:2]))*hrs
+            su=su+c
+        return su
