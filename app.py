@@ -18,7 +18,7 @@ def empSignup():
         email=request.form.get('email')
         contact=request.form.get('contact')
         address=request.form.get('address')
-        print(eid,ename,designation,email,contact,address)
+        #print(eid,ename,designation,email,contact,address)
         emp.empinsert(Eid=eid,Ename=ename,DeptId=deptid,Designation=designation,Email=email,Contact_no=contact,Address=address)
         return jsonify({'Message':"Successfully fetched the data"})
     else:
@@ -64,7 +64,7 @@ def Empsalary():
         return render_template('enterEid.html')
     
 if __name__=='__main__':
-    app.run()
+    app.run(host='0.0.0.0',port=5050)
 
 
 

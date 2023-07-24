@@ -9,8 +9,8 @@ import sqlite3
 conn=sqlite3.connect('pms.db')
     #creating cursor
 cur=conn.cursor()
-cur.execute("delete from employee_details")
-print("Delete succesfully")
+cur.execute("select PAN from salary where deptid=12")
+
 conn.commit()
 
 '''cur.execute("select * from employee_details")
